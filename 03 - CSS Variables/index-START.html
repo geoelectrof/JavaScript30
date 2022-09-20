@@ -21,6 +21,12 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --spacing: 10px;
+      --blur: 10px;
+      --base: #ffc600;
+    }
+
 
     /*
       misc styles, nothing to do with CSS variables
@@ -42,9 +48,33 @@
     input {
       width: 100px;
     }
+
+    img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+    }
   </style>
 
   <script>
+    let inputs = document.querySelectorAll("input");
+    let image = document.querySelector("img");
+    let spacing = document.getElementById("spacing");
+
+    function onChange() {
+      console.log(this.value);
+      console.log(this.name);
+      console.log(this.dataset);
+      const suffix = this.dataset.sizing || "";
+      console.log(suffix);
+      // image.style.padding = this.value + "px";
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    // spacing.addEventListener("change", onChange);
+
+    inputs.forEach( input => (input.addEventListener("change", onChange)));
+
   </script>
 
 </body>
